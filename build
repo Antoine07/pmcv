@@ -1,0 +1,87 @@
+#!/usr/bin/php
+<?php
+
+require_once __DIR__.'/src/library/helpers.php';
+
+$link = mysql_connect('localhost', 'root', 'antoine');
+if (!$link) die('Could not connect: ' . mysql_error());
+
+$dbname='pmvc';
+$tablename='posts';
+
+$username='tony';
+$password='tony';
+
+$host='localhost';
+
+$sql = "DROP DATABASE IF EXISTS $dbname;";
+
+mysql_query($sql, $link) or die('no database drop');
+
+$sql = "CREATE DATABASE $dbname DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;";
+
+mysql_query($sql, $link) or die('no create database');
+
+$sql = "DELETE FROM mysql.user WHERE user='$username' and host='$password'";
+
+mysql_query($sql, $link) or die('no create database');
+
+$sql="GRANT ALL PRIVILEGES ON $dbname.* to '$username'@'$host' IDENTIFIED BY '$password' WITH GRANT OPTION;";
+
+mysql_query($sql, $link) or die('grant all privileges problem');
+
+// create salt
+
+$salt = generate_salt(32);
+$secu = generate_salt(64);
+$timeValid = 5;
+
+$config = <<<CONFIG
+SALT=$salt
+VALID_TIME=$timeValid
+SECU=$secu
+
+HOST=localhost
+DBNAME=pmvc
+USERNAME=$username
+PASSWORD=$password
+
+DATETIME_FORMAT='d/m/Y h:i:s'
+DATE_FORMAT='d/m/Y'
+
+UPLOAD_DIRECTORY=uploads
+MAX_IMAGES=100
+
+NUM_PER_PAGE=10
+
+MAIL_DRIVER=smtp
+MAIL_HOST=127.0.0.1
+MAIL_PORT=1025
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=false
+
+MAIL_ADDRESS=antoine.lucsko@wanadoo.fr
+MAIL_NAME=antoine
+
+CONFIG;
+
+file_put_contents('.env', $config, LOCK_EX);
+
+echo $salt."\n";
+
+echo "token $timeValid minutes \n";
+echo "Migration and seeds ? \n";
+
+sleep(2);
+
+exec('php databases/migrations.php > /dev/null');
+exec('php databases/seeds.php > /dev/null');
+
+exec('rm -rf public/uploads  > /dev/null');
+
+exec('mkdir public/uploads  > /dev/null');
+
+exec('chmod 777 -R public/uploads  > /dev/null');
+
+echo "have fun! \n";

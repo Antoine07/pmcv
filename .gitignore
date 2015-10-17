@@ -1,0 +1,9 @@
+.idea/
+/vendor
+/node_modules
+composer.lock
+.env
+npm-debug.log
+.php_cs.cache
+/resources/vendor
+/public/uploads

@@ -1,0 +1,10 @@
+SetEnv APP_ENV dev
+
+RewriteEngine On
+
+RewriteBase /
+
+RewriteRule ^dashboard(?:/previous|/next)?/?([1-9][0-9]*)? index.php?page=$1 [L]
+RewriteRule ^([a-z]+)/?([a-z]+|[1-9][0-9]*)?/?([a-z]+|[1-9][0-9]*)?$ index.php?id=$2 [L]
+
+ErrorDocument 404 /index.php?p1=404
