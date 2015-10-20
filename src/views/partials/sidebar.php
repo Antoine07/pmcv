@@ -1,1 +1,11 @@
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque distinctio doloribus enim ex iure laboriosam, laborum molestias numquam omnis quidem quisquam sed tenetur voluptatum. Consectetur debitis earum nostrum perspiciatis provident!
+<nav class="nav__sidebar" id="nav__sidebar">
+    <ul class="nav__menu" id="nav__menu">
+        <li><a href="<?php echo url(); ?>">Home</a><span class="nav__spacer"></span></li>
+        <?php if (auth_guest()) : ?>
+            <li><a href="<?php echo url('dashboard'); ?>">Dashboard</a><span class="nav__spacer"></span></li>
+            <li><a href="<?php echo url('logout'); ?>">Logout</a><span class="nav__spacer"></span></li>
+        <?php else: ?>
+            <li><a href="<?php echo url('login'); ?>"> login</a><span class="nav__spacer"></span></li>
+        <?php endif; ?>
+    </ul>
+</nav>

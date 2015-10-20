@@ -1,0 +1,18 @@
+$color-main: rgb(47, 79, 79);
+$color-link: #2e87dd;
+
+$duration: '02s';
+
+$columns: 12 !default;
+$gutter: 10px !default;
+
+$url-spacer: '../images/dot.png';
+$url-sidebar: '../images/shadow.png';
+
+$duration:5s;
+
+$min-widh: 400px;
+
+$font-size: 1.5rem;
+
+$responsive-menu: 0 10px 0 2px $color-main, 0 18px 0 2px $color-main, 0 26px 0 2px $color-main;

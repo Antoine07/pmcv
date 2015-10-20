@@ -1,7 +1,7 @@
 <?php $title = 'Crud' ?>
 <?php ob_start() ?>
 <?php include __DIR__ . '/../partials/flash_message.php' ?>
-<?php include __DIR__ . '/../partials/paginate.php' ?>
+<?php include __DIR__ . '/../../partials/paginate.php' ?>
     <table class="u-full-width">
         <thead>
         <tr>
@@ -29,6 +29,6 @@
         <?php endforeach; ?>
         </tbody>
     </table>
-<?php include __DIR__ . '/../partials/paginate.php'; ?>
+<?php include __DIR__ . '/../../partials/paginate.php' ?>
 <?php $content = ob_get_clean() ?>
 <?php include __DIR__ . '/../../layouts/dashboard.php' ?>

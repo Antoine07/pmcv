@@ -15,15 +15,8 @@
 
 </head>
 <body>
-<div class="container">
+<div class="container u-full-width">
     <div class="header">
-        <nav class="header__menu">
-            <a class="button" href="<?php echo url(); ?>">home</a>
-            <?php if (auth_guest()) : ?>
-                <a class="button" href="<?php echo url('dashboard'); ?>">Dashboard</a>
-                <a class="button" href="<?php echo url('logout'); ?>">Logout</a>
-            <?php else: ?>
-            <a class="button" href="<?php echo url('login'); ?>"> login</a>
-            <?php endif; ?>
-        </nav>
+        <a class="header__icon" id="header__icon" href="#"></a>
+        <h1 class="header__title"><?php echo trans('title'); ?></h1>
     </div>

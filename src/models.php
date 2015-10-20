@@ -62,11 +62,16 @@ function __order(array $order, $fillable)
     return $q;
 }
 
-function __limit($limit)
+/**
+ * @param $offset
+ * @param $limit
+ * @return string
+ */
+function __limit($offset, $limit)
 {
     $limit = (int)$limit;
 
-    return " LIMIT 0, $limit ";
+    return " LIMIT $offset, $limit ";
 }
 
 /*
@@ -77,6 +82,7 @@ function __limit($limit)
 
 /**
  * @param $id
+ * @param $table
  * @return PDOStatement
  */
 function find_model($id, $table)
@@ -98,7 +104,7 @@ function find_model($id, $table)
  * @param int $limit
  * @return PDOStatement
  */
-function all_model($table, $where = [], $order = ['id' => 'DESC'], $limit = 10)
+function all_model($table, $where = [], $order = ['id' => 'DESC'], $start = 0, $limit = 10)
 {
     global $db, $fillable;
 
@@ -109,7 +115,7 @@ function all_model($table, $where = [], $order = ['id' => 'DESC'], $limit = 10)
 
     $query .= __where($where, $db, $fillable);
     $query .= __order($where, $fillable);
-    $query .= __limit($limit);
+    $query .= __limit($start, $limit);
 
     return $db->query($query); // throw exception if no data
 }
@@ -205,10 +211,11 @@ function create_media_model($media)
  * @param string $join
  * @param array $where
  * @param array $order
+ * @param int $start
  * @param int $limit
  * @return PDOStatement
  */
-function join_model($table1, $table2, $join = 'INNER ', $where = [], $order = [], $limit = 10)
+function join_model($table1, $table2, $join = 'INNER ', $where = [], $order = [], $start = 0, $limit = 10)
 {
     global $db, $fillable;
 
@@ -233,31 +240,41 @@ function join_model($table1, $table2, $join = 'INNER ', $where = [], $order = []
 
     $query .= __where($where, $db);
     $query .= __order($order, $fillable);
-    $query .= __limit($limit);
+    $query .= __limit($start, $limit);
 
     return $db->query($query); // PDOStatement
 }
 
 /**
- * @paginate
- * @param $start
- * @param $end
+ * @param $offset
+ * @param $limit
  * @param string $table
+ * @param array $where
+ * @param array $order
  * @return PDOStatement
  */
-function paginate($start, $end, $table = 'posts')
+function paginate($offset, $limit, $table = 'posts', $where = [], $order = [])
 {
-    global $db;
+    global $db, $fillable;
     $query = sprintf(
-        "SELECT * FROM %s LIMIT %s, %s",
+        "SELECT * FROM %s ",
         $table,
-        $start,
-        $end
+        $offset,
+        $limit
     );
+
+    $query .= __where($where, $db, $fillable);
+    $query .= __order($order, $fillable);
+    $query .= __limit($offset, $limit);
 
     return $db->query($query); // throw exception if no data
 }
 
+/**
+ * @param $table
+ * @param array $where
+ * @return null|string
+ */
 function count_model($table, $where = [])
 {
     global $db, $fillable;
@@ -267,7 +284,6 @@ function count_model($table, $where = [])
     );
 
     $query .= __where($where, $db, $fillable);
-    $query .= __order($where, $fillable);
 
     if ($res = $db->query($query)) {
         return $res->fetchColumn();
@@ -301,7 +317,9 @@ function auth_model($email, $password)
     return false;
 }
 
-
+/**
+ * @return string
+ */
 function lastInsertId()
 {
     global $db;

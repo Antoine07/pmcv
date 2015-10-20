@@ -1,12 +1,38 @@
+@import "modules/mixin";
+@import "modules/variable";
 @import "modules/header";
+@import "modules/footer";
 @import "modules/button_file";
 @import "modules/paginate";
-@import url(http://fonts.googleapis.com/css?family=Roboto+Condensed);
+@import "modules/nav";
+@import "modules/responsive";
+@import url(https://fonts.googleapis.com/css?family=Inconsolata);
+
+%clearfix {
+  &:after,
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+body {
+  font-size:$font-size;
+  font-family: "Inconsolata", Andale Mono, Monaco, Monospace;
+  font-style: normal;
+  font-weight: normal;
+  color: $color-main;
+  line-height: 1.5;
+  width: 90%;
+}
+
+div.container{
+  max-width: 100%;
+}
 
 div.main {
-
   margin-top: 90px;
-
   section {
     h1 {
       font-size: 2rem;
@@ -28,11 +54,8 @@ div.alert {
   top: 20%;
   left: 30%;
   z-index: 99999;
-  -webkit-box-shadow: 0px 0px 20px #000;
-  -moz-box-shadow: 0px 0px 20px #000;
-  box-shadow: 0px 0px 20px #000;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
+  @include box-shadow(0px 0px 20px #000);
+  @include border-radius(10px);
 }
 
 img {
@@ -40,16 +63,22 @@ img {
   height: auto;
 }
 
-.navbar {
-  margin-top: 70px; padding: 20px;
-  background-color: #f2f2f2;
-  background-position: right top;
-  background-repeat: repeat-y;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 0;
-  min-height: 1000px;
-  background-image: url("../images/shadow.png");
+a{
+  color:$color-link;
+  text-decoration: none;
+  &:hover{
+    text-decoration: underline;
+  }
+}
 
+pre {
+  line-height: 18px;
+  font-size: 13px;
+  margin: 7px 0 21px;
+  padding: 5px 10px;
+  overflow: auto;
+  background-color: #fafafa;
+  border: 1px solid #e6e6e6;
+  @include border-radius(5px);
+  @include box-shadow('0, 0, 0, 0.05');
 }

@@ -14,5 +14,6 @@ return [
     'success_post_updated' => 'The :attribute updated successfully',
     'success_post_stored'  => 'The :attribute stored successfully',
     'success_post_deleted' => 'The :attribute stored successfully',
+    'title'                => 'Hi code'
 ];
 

@@ -18,6 +18,28 @@ function __is_guest()
         redirect('login', '401 Unauthorized');
 }
 
+function __paginate($table, $where)
+{
+    // paginate
+    $total = count_model($table, $where);
+    $num_per_page = getEnv('NUM_PER_PAGE');
+
+    $num_page = ceil($total / $num_per_page);
+
+    $previous = ($page <= 1) ? false : true;
+    $next = ($page >= $num_page || $num_page == 1) ? false : true;
+
+    $lastIdPage = 0;
+
+    if (is_null($page)) {
+        $posts = paginate(0, $num_per_page, 'posts');
+    } else {
+        $offset = $num_per_page * ($page - 1);
+        $lastIdPage = $page;
+        $posts = paginate($offset, $num_per_page, 'posts');
+    }
+}
+
 
 /*
 |--------------------------------------------------------------------------
