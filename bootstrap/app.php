@@ -44,9 +44,9 @@ $lang = require_once __DIR__ . '/../resources/lang/en.php';
 | Library
 |--------------------------------------------------------------------------
 */
+require __DIR__ . '/../src/library/helpers.php';
 $database = require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../src/library/connect.php';
-require __DIR__ . '/../src/library/helpers.php';
 
 /*
 |--------------------------------------------------------------------------

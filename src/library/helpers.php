@@ -6,6 +6,32 @@
 
 /*
 |--------------------------------------------------------------------------
+| env
+|--------------------------------------------------------------------------
+*/
+
+if (!function_exists('env')) {
+
+    /**
+     * @param $name
+     * @param $default
+     * @return mixed
+     */
+    function env($name, $default = '')
+    {
+        if (!empty($default)) return $default;
+
+        if (getEnv($name)) {
+            return getEnv($name);
+        }
+
+        throw new RuntimeException("$name constant no defined");
+    }
+}
+
+
+/*
+|--------------------------------------------------------------------------
 | debug
 |--------------------------------------------------------------------------
 */
@@ -247,8 +273,6 @@ if (!function_exists('url')) {
     }
 }
 
-
-
 /*
 |--------------------------------------------------------------------------
 |  Form
@@ -271,7 +295,6 @@ if (!function_exists('old')) {
         }
     }
 }
-
 
 if (!function_exists('errors')) {
     /**
@@ -394,8 +417,47 @@ if (!function_exists('trans')) {
 
     //throw new RuntimeException("no key translate found");
 }
+
 /*
 |--------------------------------------------------------------------------
 |   Cache system
 |--------------------------------------------------------------------------
 */
+if (!function_exists('cache_put')) {
+    /**
+     * @param $key
+     * @param array $posts
+     */
+    function cache_put($key, $posts = [])
+    {
+        $dCache = getEnv('CACHE_DIRECTORY');
+        $file = implode('/', explode('.', $key)) . '.php';
+        $fileCache = APP_PATH . '/' . $dCache . '/' . implode('_', explode('.', $key)) . '.php';
+
+        ob_start();
+        include APP_PATH . '/src/views/' . $file;
+        $content = ob_get_contents();
+        file_put_contents($fileCache, $content);
+        ob_end_clean();
+
+        chmod($fileCache, 0775);
+    }
+}
+
+if (!function_exists('cache_get')) {
+    /**
+     * @param $key
+     * @return bool|string
+     */
+    function cache_get($key)
+    {
+        $dCache = getEnv('CACHE_DIRECTORY');
+        $file = APP_PATH . '/' . $dCache . '/' . implode('_', explode('.', $key)) . '.php';
+
+        if (file_exists($file) && filemtime($file) > getEnv('CACHE_EXPIRE')) {
+            return file_get_contents($file);
+        }
+
+        return false;
+    }
+}

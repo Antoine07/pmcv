@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'host'     => getenv('HOST'),
-    'dbname'   =>  getenv('DBNAME'),
-    'username' =>  getenv('USERNAME'),
-    'password' =>  getenv('PASSWORD'),
+    'host'     => env('HOST', 'localhost'),
+    'dbname'   => env('DBNAME', ''),
+    'username' => env('USERNAME', ''),
+    'password' => env('PASSWORD', ''),
 ];

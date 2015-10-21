@@ -35,6 +35,7 @@ mysql_query($sql, $link) or die('grant all privileges problem');
 $salt = generate_salt(32);
 $secu = generate_salt(64);
 $timeValid = 5;
+$time= time()-30;
 
 $config = <<<CONFIG
 SALT=$salt
@@ -53,6 +54,9 @@ UPLOAD_DIRECTORY=uploads
 MAX_IMAGES=100
 
 NUM_PER_PAGE=10
+
+CACHE_DIRECTORY='storage/cache'
+CACHE_EXPIRE=$time
 
 MAIL_DRIVER=smtp
 MAIL_HOST=127.0.0.1

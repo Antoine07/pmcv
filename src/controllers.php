@@ -49,10 +49,16 @@ function __paginate($table, $where)
 
 function home_controller()
 {
-    $posts = join_model('posts', 'medias', 'left outer', ['t1.status' => 'published']);
+    if ($home = cache_get('front.home')) {
+        response('200 Ok');
+        echo $home;
+    } else {
+        $posts = join_model('posts', 'medias', 'left outer', ['t1.status' => 'published']);
 
-    response('200 Ok');
-    include 'views/front/home.php';
+        cache_put('front.home', $posts);
+        echo  cache_get('front.home');
+    }
+
 }
 
 
