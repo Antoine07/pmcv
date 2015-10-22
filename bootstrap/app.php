@@ -12,7 +12,7 @@ ini_set('date.timezone', 'Europe/Paris');
 
 /*
 |--------------------------------------------------------------------------
-|   Constants App
+|   App constants
 |--------------------------------------------------------------------------
 */
 
@@ -47,6 +47,24 @@ $lang = require_once __DIR__ . '/../resources/lang/en.php';
 require __DIR__ . '/../src/library/helpers.php';
 $database = require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../src/library/connect.php';
+
+/*
+|--------------------------------------------------------------------------
+| Cache
+|--------------------------------------------------------------------------
+*/
+
+define('CACHE_PATH', APP_PATH . '/storage/' . env('CACHE_NAME_DIRECTORY', ''));
+define('CACHE', env('CACHE', true));
+define('CACHE_TIME', time() - env('CACHE_TIME', 30));
+
+/*
+|--------------------------------------------------------------------------
+| View
+|--------------------------------------------------------------------------
+*/
+
+define('VIEW_PATH', env('VIEW_PATH', APP_PATH . '/src/views'));
 
 /*
 |--------------------------------------------------------------------------

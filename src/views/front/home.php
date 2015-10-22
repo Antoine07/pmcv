@@ -1,4 +1,4 @@
-<?php $title = 'Home page' ?>
+<?php $title = 'Home page'; ?>
 <?php ob_start() ?>
     <section class="content">
         <?php foreach ($posts as $post): ?>

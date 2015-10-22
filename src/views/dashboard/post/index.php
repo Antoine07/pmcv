@@ -1,6 +1,9 @@
 <?php $title = 'Crud' ?>
 <?php ob_start() ?>
-<?php include __DIR__ . '/../partials/flash_message.php' ?>
+<div class="ten columns info">
+    <a class="button" href="<?php echo url('post/create'); ?>">Add post</a>
+    <?php include __DIR__ . '/../partials/flash_message.php' ?>
+</div>
 <?php include __DIR__ . '/../../partials/paginate.php' ?>
     <table class="u-full-width">
         <thead>

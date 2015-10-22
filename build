@@ -35,7 +35,6 @@ mysql_query($sql, $link) or die('grant all privileges problem');
 $salt = generate_salt(32);
 $secu = generate_salt(64);
 $timeValid = 5;
-$time= time()-30;
 
 $config = <<<CONFIG
 SALT=$salt
@@ -55,8 +54,9 @@ MAX_IMAGES=100
 
 NUM_PER_PAGE=10
 
-CACHE_DIRECTORY='storage/cache'
-CACHE_EXPIRE=$time
+CACHE_NAME_DIRECTORY='cache'
+CACHE_TIME=30
+CACHE=true
 
 MAIL_DRIVER=smtp
 MAIL_HOST=127.0.0.1
@@ -87,5 +87,8 @@ exec('rm -rf public/uploads  > /dev/null');
 exec('mkdir public/uploads  > /dev/null');
 
 exec('chmod 777 -R public/uploads  > /dev/null');
+exec('chmod 777 -R storage  > /dev/null');
+
+exec('rm -rf storage/cache/*  > /dev/null');
 
 echo "have fun! \n";

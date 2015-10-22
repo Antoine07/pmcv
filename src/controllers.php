@@ -40,7 +40,6 @@ function __paginate($table, $where)
     }
 }
 
-
 /*
 |--------------------------------------------------------------------------
 | Front controllers
@@ -49,22 +48,24 @@ function __paginate($table, $where)
 
 function home_controller()
 {
-    if ($home = cache_get('front.home')) {
+
+    $home = cache_get('front.home');
+
+    if (!$home) {
+        $categories = all_model('categories');
+        $posts = join_model('posts', 'medias', 'left outer', ['t1.status' => 'published']);
+        cache_put('front.home', compact('categories', 'posts'));
+
+    } else {
         response('200 Ok');
         echo $home;
-    } else {
-        $posts = join_model('posts', 'medias', 'left outer', ['t1.status' => 'published']);
-
-        cache_put('front.home', $posts);
-        echo  cache_get('front.home');
     }
-
 }
-
 
 function show_controller($id)
 {
     $post = find_model($id, 'posts');
+    $categories = all_model('categories');
 
     response('200 Ok');
     include 'views/front/single.php';

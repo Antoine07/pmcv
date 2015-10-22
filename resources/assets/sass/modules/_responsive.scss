@@ -20,6 +20,9 @@
   .nav__sidebar {
     display: none;
   }
+  .five .nav__visible {
+    display: block;
+  }
 }
 
 @media (min-width: 550px) {

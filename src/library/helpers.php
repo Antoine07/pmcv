@@ -423,24 +423,29 @@ if (!function_exists('trans')) {
 |   Cache system
 |--------------------------------------------------------------------------
 */
+
+
 if (!function_exists('cache_put')) {
     /**
      * @param $key
-     * @param array $posts
+     * @param array $data
      */
-    function cache_put($key, $posts = [])
+    function cache_put($key, $data = [])
     {
-        $dCache = getEnv('CACHE_DIRECTORY');
         $file = implode('/', explode('.', $key)) . '.php';
-        $fileCache = APP_PATH . '/' . $dCache . '/' . implode('_', explode('.', $key)) . '.php';
+        $fileCache = CACHE_PATH . '/' . implode('_', explode('.', $key)) . '.php';
 
         ob_start();
-        include APP_PATH . '/src/views/' . $file;
+        extract($data);
+        include VIEW_PATH . '/' . $file;
         $content = ob_get_contents();
-        file_put_contents($fileCache, $content);
         ob_end_clean();
 
-        chmod($fileCache, 0775);
+        file_put_contents($fileCache, $content);
+
+        echo $content;
+
+        @chmod($fileCache, 0775);
     }
 }
 
@@ -451,10 +456,9 @@ if (!function_exists('cache_get')) {
      */
     function cache_get($key)
     {
-        $dCache = getEnv('CACHE_DIRECTORY');
-        $file = APP_PATH . '/' . $dCache . '/' . implode('_', explode('.', $key)) . '.php';
+        $file = CACHE_PATH . '/' . implode('_', explode('.', $key)) . '.php';
 
-        if (file_exists($file) && filemtime($file) > getEnv('CACHE_EXPIRE')) {
+        if (file_exists($file) && filemtime($file) > CACHE_TIME) {
             return file_get_contents($file);
         }
 

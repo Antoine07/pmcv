@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="<?php echo url('assets/css/normalize.min.css'); ?>">
     <link rel="stylesheet" href="<?php echo url('assets/css/skeleton.min.css'); ?>">
     <link rel="stylesheet" href="<?php echo url('assets/css/app.min.css'); ?>">
-
     <!-- Favicon  -->
     <link rel="icon" type="image/png" href="<?php echo url('images/favicon.png'); ?>">
 
@@ -18,5 +17,5 @@
 <div class="container u-full-width">
     <div class="header">
         <a class="header__icon" id="header__icon" href="#"></a>
-        <h1 class="header__title"><?php echo trans('title'); ?></h1>
+        <h1 class="header__title"><a href="<?php echo url(); ?>"><?php echo trans('title'); ?></a></h1>
     </div>
