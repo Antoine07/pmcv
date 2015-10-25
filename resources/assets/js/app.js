@@ -53,8 +53,8 @@
 
     $("#header__icon").on('click', function (e) {
         e.preventDefault();
-        //$nav__sidebar.toggleClass('nav__visible');
-        $nav__sidebar.toggle('slow');
+        $nav__sidebar.toggleClass('nav__visible');
+        //$nav__sidebar.toggle('slow');
     });
 
 

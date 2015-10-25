@@ -48,13 +48,13 @@ function __paginate($table, $where)
 
 function home_controller()
 {
-
-    $home = cache_get('front.home');
+    $home = cache_get('home');
 
     if (!$home) {
         $categories = all_model('categories');
-        $posts = join_model('posts', 'medias', 'left outer', ['t1.status' => 'published']);
-        cache_put('front.home', compact('categories', 'posts'));
+        $posts = one_to_many_model('posts', 'medias', 'left outer', ['t1.status' => 'published'], ['desc' => 'published_at']);
+        response('200 Ok');
+        cache_put('front.home', 'home', compact('categories', 'posts'));
 
     } else {
         response('200 Ok');
@@ -64,11 +64,53 @@ function home_controller()
 
 function show_controller($id)
 {
-    $post = find_model($id, 'posts');
     $categories = all_model('categories');
+    $post = one_to_many_model('posts', 'medias', 'left outer', [
+        't1.id' => $id
+    ]);
 
     response('200 Ok');
-    include 'views/front/single.php';
+    view('front.single', compact('post', 'categories'));
+}
+
+function show_post_by_category_controller($id)
+{
+    $category = cache_get('category_' . $id);
+
+
+    if (!$category) {
+        $Posts = many_to_many_model('posts', 'categories', ['t.status' => 'published', 'r.category_id' => $id]);
+        $posts = [];
+        foreach ($Posts as $Post) {
+            $post = one_to_many_model('posts', 'medias', 'left outer', [
+                't1.id' => $Post['id']
+            ]);
+            $posts[] = $post->fetch();
+        }
+
+        $categories = all_model('categories');
+
+        cache_put('front.category', 'category_' . $id, compact('categories', 'posts'));
+
+        return;
+
+    } else {
+        response('200 Ok');
+
+        echo $category;
+
+        return;
+    }
+
+
+    if (!empty($posts)) {
+        response('200 Ok');
+
+        view('front.category', compact('posts', 'categories'));
+    } else {
+        throw new RuntimeException('418');
+    }
+
 }
 
 /*
@@ -82,7 +124,7 @@ function login_controller()
     __is_auth();
 
     response('200 Ok');
-    include 'views/front/login.php';
+    view('front.login');
 }
 
 function post_login_controller()
@@ -164,7 +206,8 @@ function index_post_controller($page = null)
     }
 
     response('200 Ok');
-    include 'views/dashboard/post/index.php';
+    view('dashboard.post.index', compact('posts'));
+
 }
 
 // *todo test transaction PDO
@@ -176,7 +219,8 @@ function create_post_controller()
     __is_guest();
 
     response('200 Ok');
-    include 'views/dashboard/post/create.php';
+    view('dashboard.post.create');
+
 }
 
 /**
@@ -289,12 +333,13 @@ function edit_post_controller($id)
 {
     __is_guest();
 
-    $post = join_model('posts', 'medias', 'left outer', ['t1.id' => (int)$id]);
+    $post = one_to_many_model('posts', 'medias', 'left outer', ['t1.id' => (int)$id]);
     $post = $post->fetch();
 
     $published_at = ($post['published_at'] != '0000-00-00 00:00:00') ? new DateTime($post['published_at']) : '0000-00-00 00:00:00';
     response('200 Ok');
-    include 'views/dashboard/post/update.php';
+    view('dashboard.post.update', compact('post'));
+
 }
 
 // todo delete image with ajax

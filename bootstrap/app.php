@@ -60,11 +60,12 @@ define('CACHE_TIME', time() - env('CACHE_TIME', 30));
 
 /*
 |--------------------------------------------------------------------------
-| View
+| Path
 |--------------------------------------------------------------------------
 */
 
-define('VIEW_PATH', env('VIEW_PATH', APP_PATH . '/src/views'));
+define('VIEW_PATH', env('VIEW_PATH', APP_PATH . '/resources/views'));
+define('ASSET_PATH', env('ASSET_PATH', URL_SITE . '/assets'));
 
 /*
 |--------------------------------------------------------------------------

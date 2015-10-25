@@ -41,7 +41,9 @@ $count = $db->exec("
   VALUES
   (1,1 ),
   (1,2 ),
-  (1,3 )
+  (1,3 ),
+  (2,1),
+  (3,1)
   ") or die('fixtures problem');
 
 echo "number lines fixtures: $count \n";

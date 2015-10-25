@@ -74,8 +74,8 @@ $count = $db->exec("
   CREATE TABLE category_post (
   post_id INT UNSIGNED,
   category_id INT UNSIGNED,
-  CONSTRAINT category_post_posts_post_id FOREIGN KEY(post_id) REFERENCES posts(id) ON DELETE CASCADE,
-  CONSTRAINT category_post_categories_post_id FOREIGN KEY(category_id) REFERENCES categories(id) ON DELETE CASCADE,
+  CONSTRAINT category_post_posts_post_id_foreign FOREIGN KEY(post_id) REFERENCES posts(id) ON DELETE CASCADE,
+  CONSTRAINT category_post_categories_post_id_foreign FOREIGN KEY(category_id) REFERENCES categories(id) ON DELETE CASCADE,
   CONSTRAINT un_post_id_category_id UNIQUE KEY (post_id, category_id )
   ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
   ");

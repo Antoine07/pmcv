@@ -52,10 +52,11 @@ function __order(array $order, $fillable)
         return '';
 
     $q = '';
-    $field = key($order);
+    $key = key($order);
+    $field = $order[$key];
 
     if (in_array($field, $fillable)) {
-        $order = strtolower($order[$field]) == 'desc' ? 'DESC' : 'ASC';
+        $order = strtolower($key) == 'desc' ? 'DESC' : 'ASC';
         $q .= " ORDER BY $field $order";
     }
 
@@ -216,7 +217,7 @@ function create_media_model($media)
  * @param int $limit
  * @return PDOStatement
  */
-function join_model($table1, $table2, $join = 'INNER ', $where = [], $order = [], $start = 0, $limit = 10)
+function one_to_many_model($table1, $table2, $join = 'INNER ', $where = [], $order = [], $start = 0, $limit = 10)
 {
     global $db, $fillable;
 
@@ -244,6 +245,47 @@ function join_model($table1, $table2, $join = 'INNER ', $where = [], $order = []
     $query .= __limit($start, $limit);
 
     return $db->query($query); // PDOStatement
+}
+
+/**
+ * @param $table1
+ * @param $table2
+ * @param array $where
+ * @param array $order
+ * @param int $offset
+ * @param int $limit
+ * @return PDOStatement
+ */
+function many_to_many_model($table1, $table2, $where = [], $order = [], $offset = 0, $limit = 10)
+{
+    global $db, $fillable;
+
+    $singularNameTable1 = Inflector::singularize($table1);
+    $singularNameTable2 = Inflector::singularize($table2);
+
+    $tables = [$singularNameTable1, $singularNameTable2];
+    sort($tables);
+
+    $table2_foreign_key = $tables[1] . '_id';
+
+    $table_relation = $tables[0] . '_' . $tables[1];
+
+    $query = sprintf(
+        "SELECT t.*
+         FROM %s as t
+         INNER JOIN %s as r
+         ON t.id = r.$table2_foreign_key
+        ",
+        $table1,
+        $table_relation,
+        $table2
+    );
+
+    $query .= __where($where, $db, $fillable);
+    $query .= __order($order, $fillable);
+    $query .= __limit($offset, $limit);
+
+    return $db->query($query); // throw exception if no data
 }
 
 /**

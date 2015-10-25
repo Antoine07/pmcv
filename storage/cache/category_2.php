@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Home page</title>
+    <title>Category</title>
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,36 +29,20 @@
                     <span class="nav__spacer"></span></li>
                             <li><a href="http://pmvc.conf/category/3">Server</a>
                     <span class="nav__spacer"></span></li>
-                                        <li><a href="http://pmvc.conf/login"> login</a><span class="nav__spacer"></span></li>
+                                        <li><a href="http://pmvc.conf/dashboard">Dashboard</a><span class="nav__spacer"></span></li>
+            <li><a href="http://pmvc.conf/logout">Logout</a><span class="nav__spacer"></span></li>
             </ul>
 </nav>    </div>
     <div class="seven columns">
             <section class="content">
-                    <h1><a href="http://pmvc.conf/single/1">
-                    php7                </a></h1>
-                        <p class="excerpt">lorem</p>
-            <p class="date">
-                <small>date de publication: 22/10/2015</small>
-            </p>
-                    <h1><a href="http://pmvc.conf/single/2">
-                    mysql                </a></h1>
-                        <p class="excerpt">lorem</p>
-            <p class="date">
-                <small>date de publication: 22/10/2015</small>
-            </p>
-                    <h1><a href="http://pmvc.conf/single/3">
-                    MongoDB                </a></h1>
-                        <p class="excerpt">lorem</p>
-            <p class="date">
-                <small>date de publication: 22/10/2015</small>
-            </p>
-                    <h1><a href="http://pmvc.conf/single/4">
-                    Docker                </a></h1>
-                        <p class="excerpt">lorem</p>
-            <p class="date">
-                <small>date de publication: 22/10/2015</small>
-            </p>
-            </section>
+                                    <h1><a href="http://pmvc.conf/single/1">
+                        php7                    </a></h1>
+                                    <img src="http://pmvc.conf/uploads/8ed04190a7daf27e159457a78c48b53d.JPG" alt=""/>
+                                <p class="excerpt">lorem</p>
+                <p class="date">
+                    <small>date de publication: 25/10/2015</small>
+                </p>
+                        </section>
     </div>
 </div>
 <div class="container footer">

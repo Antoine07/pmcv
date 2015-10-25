@@ -52,16 +52,20 @@ function router($uri)
                 home_controller();
                 break;
 
+            case "single/$id":
+                show_controller($id);
+                break;
+
+            case "category/$id":
+                show_post_by_category_controller($id);
+                break;
+
             case 'login':
                 login_controller();
                 break;
 
             case "post/$id/edit":
                 edit_post_controller($id);
-                break;
-
-            case "single/$id":
-                show_controller($id);
                 break;
 
             case (preg_match('/dashboard/', $uri)) ? true : false :

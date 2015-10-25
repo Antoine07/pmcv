@@ -6,6 +6,89 @@
 
 /*
 |--------------------------------------------------------------------------
+| path
+|--------------------------------------------------------------------------
+*/
+if (!function_exists('path')) {
+
+    function path($name)
+    {
+        return implode('/', explode('.', $name)) . '.php';
+    }
+}
+
+if (!function_exists('view')) {
+
+    /**
+     * @param $name
+     * @param array $data
+     */
+    function view($name, $data = [])
+    {
+        extract($data);
+
+        $view = VIEW_PATH . '/' . path($name);
+
+        include_once $view;
+    }
+}
+
+if (!function_exists('cache_path')) {
+
+    /**
+     * @param $hash
+     * @return string
+     */
+    function cache_path($hash)
+    {
+
+        $hash = implode('_', explode('.', $hash));
+
+        return CACHE_PATH . '/' . path($hash);
+    }
+}
+
+if (!function_exists('assets')) {
+
+    function assets($name)
+    {
+        $name = path($name);
+
+        return ASSETS_PATH . '/' . $name;
+    }
+
+}
+
+if (!function_exists('url')) {
+    /**
+     * @param string $path
+     * @param null $params
+     * @return string
+     */
+    function url($path = '', $params = null)
+    {
+        if ($path == 'self') {
+            return htmlentities($_SERVER["REQUEST_URI"]); // protection injection script
+        }
+
+        $p = '';
+        $sep = '/';
+
+        $path = ltrim($path, '/');
+
+        if (!empty($params)) {
+            if (is_array($params)) {
+                $params = implode('/', $params);
+            }
+            $p = $sep . $params;
+        }
+
+        return URL_SITE . $sep . $path . $p;
+    }
+}
+
+/*
+|--------------------------------------------------------------------------
 | env
 |--------------------------------------------------------------------------
 */
@@ -242,39 +325,6 @@ if (!function_exists('redirect')) {
 
 /*
 |--------------------------------------------------------------------------
-| url path
-|--------------------------------------------------------------------------
-*/
-if (!function_exists('url')) {
-    /**
-     * @param string $path
-     * @param null $params
-     * @return string
-     */
-    function url($path = '', $params = null)
-    {
-        if ($path == 'self') {
-            return htmlentities($_SERVER["REQUEST_URI"]); // protection injection script
-        }
-
-        $p = '';
-        $sep = '/';
-
-        $path = ltrim($path, '/');
-
-        if (!empty($params)) {
-            if (is_array($params)) {
-                $params = implode('/', $params);
-            }
-            $p = $sep . $params;
-        }
-
-        return URL_SITE . $sep . $path . $p;
-    }
-}
-
-/*
-|--------------------------------------------------------------------------
 |  Form
 |--------------------------------------------------------------------------
 */
@@ -427,17 +477,16 @@ if (!function_exists('trans')) {
 
 if (!function_exists('cache_put')) {
     /**
-     * @param $key
+     * @param $name
+     * @param $hash
      * @param array $data
      */
-    function cache_put($key, $data = [])
+    function cache_put($name, $hash, $data = [])
     {
-        $file = implode('/', explode('.', $key)) . '.php';
-        $fileCache = CACHE_PATH . '/' . implode('_', explode('.', $key)) . '.php';
+        $fileCache = cache_path($hash);
 
         ob_start();
-        extract($data);
-        include VIEW_PATH . '/' . $file;
+        view($name, $data);
         $content = ob_get_contents();
         ob_end_clean();
 
