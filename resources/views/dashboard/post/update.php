@@ -37,7 +37,7 @@
             </div>
         </div>
         <label for="content">content</label>
-        <textarea class="u-full-width" placeholder="Hi content …"
+        <textarea class="u-full-width" placeholder="Hi content …" name="content"
                   id="content"><?php echo $post['content']; ?></textarea>
         <label class="published_at">
             <input type="checkbox" name="published_at"

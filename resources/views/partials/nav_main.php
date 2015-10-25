@@ -7,6 +7,7 @@
                     <span class="nav__spacer"></span></li>
             <?php endforeach; ?>
         <?php endif; ?>
+        <li><a href="<?php echo url('contact'); ?>">Contact</a><span class="nav__spacer"></span></li>
         <?php if (auth_guest()) : ?>
             <li><a href="<?php echo url('dashboard'); ?>">Dashboard</a><span class="nav__spacer"></span></li>
             <li><a href="<?php echo url('logout'); ?>">Logout</a><span class="nav__spacer"></span></li>

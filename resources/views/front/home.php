@@ -13,6 +13,9 @@
                 <small>date de publication: <?php $datetime = new DateTime($post['published_at']);
                     echo $datetime->format('d/m/Y') ?></small>
             </p>
+            <p class="comment">
+                <small>number comment(s) 10</small>
+            </p>
         <?php endforeach; ?>
     </section>
 <?php $content = ob_get_clean() ?>

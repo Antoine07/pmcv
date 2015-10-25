@@ -23,42 +23,33 @@
         <nav class="nav__sidebar" id="nav__sidebar">
     <ul class="nav__menu" id="nav__menu">
         <li><a href="http://pmvc.conf/">Home</a><span class="nav__spacer"></span></li>
-                                    <li><a href="http://pmvc.conf/category/1">Techno back</a>
+                                    <li><a href="http://pmvc.conf/category/1">Programming</a>
                     <span class="nav__spacer"></span></li>
-                            <li><a href="http://pmvc.conf/category/2">Techno Front</a>
+                            <li><a href="http://pmvc.conf/category/2">Algorithm</a>
                     <span class="nav__spacer"></span></li>
-                            <li><a href="http://pmvc.conf/category/3">Server</a>
-                    <span class="nav__spacer"></span></li>
-                                        <li><a href="http://pmvc.conf/dashboard">Dashboard</a><span class="nav__spacer"></span></li>
-            <li><a href="http://pmvc.conf/logout">Logout</a><span class="nav__spacer"></span></li>
+                            <li><a href="http://pmvc.conf/contact">Contact</a><span class="nav__spacer"></span></li>
+                    <li><a href="http://pmvc.conf/login"> login</a><span class="nav__spacer"></span></li>
             </ul>
 </nav>    </div>
     <div class="seven columns">
-            <section class="content">home
+            <section class="content">
                     <h1><a href="http://pmvc.conf/single/1">
                     php7                </a></h1>
-                            <img src="http://pmvc.conf/uploads/8ed04190a7daf27e159457a78c48b53d.JPG" alt=""/>
                         <p class="excerpt">lorem</p>
             <p class="date">
                 <small>date de publication: 25/10/2015</small>
+            </p>
+            <p class="comment">
+                <small>number comment(s) 10</small>
             </p>
                     <h1><a href="http://pmvc.conf/single/2">
-                    mysql                </a></h1>
+                    Algorithm Euclide                </a></h1>
                         <p class="excerpt">lorem</p>
             <p class="date">
                 <small>date de publication: 25/10/2015</small>
             </p>
-                    <h1><a href="http://pmvc.conf/single/3">
-                    MongoDB                </a></h1>
-                        <p class="excerpt">lorem</p>
-            <p class="date">
-                <small>date de publication: 25/10/2015</small>
-            </p>
-                    <h1><a href="http://pmvc.conf/single/4">
-                    Docker                </a></h1>
-                        <p class="excerpt">lorem</p>
-            <p class="date">
-                <small>date de publication: 25/10/2015</small>
+            <p class="comment">
+                <small>number comment(s) 10</small>
             </p>
             </section>
     </div>

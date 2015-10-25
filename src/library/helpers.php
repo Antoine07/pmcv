@@ -197,7 +197,7 @@ if (!function_exists('hasFlashMessage')) {
 
 /*
 |--------------------------------------------------------------------------
-| Security
+| Security and sanitize
 |--------------------------------------------------------------------------
 */
 if (!function_exists('render')) {
@@ -289,6 +289,15 @@ if (!function_exists('generate_salt')) {
 
         return $string;
     }
+}
+
+if (!function_exists('short_code')) {
+
+    function short_code($string)
+    {
+        return preg_replace('/\[pre\](.*)\[pre\/\]/', '<pre>$1</pre>', $string);
+    }
+
 }
 
 /*
